@@ -1266,6 +1266,122 @@ function smsDeleteCampaign(callback, campaign_id) {
     sendRequest('sms/campaigns', 'DELETE', data, true, callback);
 }
 
+
+/* *********************************  Web Push  *********************************
+ *
+ * Documentation
+ * https://sendpulse.com/integrations/api/web-push
+ *
+ */
+
+/**
+ * Get list of websites
+ *
+ * @param callback
+ * @param limit
+ * @param offset
+ */
+ function listWebsites(callback, limit, offset) {
+    var data = {};
+    if (limit === undefined) {
+        limit = null;
+    } else {
+        data['limit'] = limit;
+    }
+    if (offset === undefined) {
+        offset = null;
+    } else {
+        data['offset'] = offset;
+    }
+    sendRequest('push/websites', 'GET', data, true, callback);
+}
+  
+/**
+* Get Website Info
+*
+* @param callback
+* @param id
+*/
+function getWebsiteInfo(callback, id) {
+    if (id === undefined) {
+        return callback(returnError('Empty website id'));
+    }
+    sendRequest('push/websites/info/' + id, 'GET', {}, true, callback);
+}
+
+/**
+ * Get total number of websites
+ *
+ * @param callback
+ */
+function getWebsitesCount(callback) {
+    sendRequest('push/websites/total', 'GET', {}, true, callback);
+}
+
+/**
+ * Get a list of variables for a website
+ *
+ * @param callback
+ * @param id
+ */
+function getWebsiteVariables(callback, id) {
+    if (id === undefined) {
+        return callback(returnError('Empty website id'));
+    }
+    sendRequest('push/websites/' + id + '/variables', 'GET', {}, true, callback);
+}
+
+/**
+ * Get a list of website subscribers
+ *
+ * @param callback
+ * @param id
+ * @param limit
+ * @param offset
+ * @param date_from
+ * @param date_to
+ */
+function getWebsiteSubscribers(callback, id, limit, offset, date_from, date_to) {
+    if (id === undefined) {
+        return callback(returnError('Empty website id'));
+    }
+    var data = {};
+    if (limit === undefined) {
+        limit = null;
+    } else {
+        data['limit'] = limit;
+    }
+    if (offset === undefined) {
+        offset = null;
+    } else {
+        data['offset'] = offset;
+    }
+    if (date_from === undefined) {
+        date_from = null;
+    } else {
+        data['dateFrom'] = date_from;
+    }
+    if (date_to === undefined) {
+        date_to = null;
+    } else {
+        data['dateTo'] = date_to;
+    }
+    sendRequest('push/websites/' + id + '/subscriptions', 'GET', data, true, callback);
+}
+
+/**
+ * Get total number of website subscribers
+ *
+ * @param callback
+ * @param id
+ */
+ function getWebsiteSubscribersCount(callback, id) {
+    if (id === undefined) {
+        return callback(returnError('Empty website id'));
+    }
+    sendRequest('push/websites/' + id + '/subscriptions/total', 'GET', {}, true, callback);
+}
+
 exports.init = init;
 exports.listAddressBooks = listAddressBooks;
 exports.createAddressBook = createAddressBook;
@@ -1324,3 +1440,9 @@ exports.smsCancelCampaign = smsCancelCampaign;
 exports.smsGetCampaignCost = smsGetCampaignCost;
 exports.smsDeleteCampaign = smsDeleteCampaign;
 exports.getToken = getToken;
+exports.listWebsites = listWebsites;
+exports.getWebsiteInfo = getWebsiteInfo;
+exports.getWebsitesCount = getWebsitesCount;
+exports.getWebsiteVariables = getWebsiteVariables;
+exports.getWebsiteSubscribers = getWebsiteSubscribers;
+exports.getWebsiteSubscribersCount = getWebsiteSubscribersCount;

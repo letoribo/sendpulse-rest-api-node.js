@@ -131,4 +131,13 @@ sendpulse.init(API_USER_ID, API_SECRET, TOKEN_STORAGE, function(token) {
     sendpulse.smsCancelCampaign(answerGetter, 123456);
     sendpulse.smsGetCampaignCost(answerGetter, 'sender_test', 'body_test', null, ['111111111']);
     sendpulse.smsDeleteCampaign(answerGetter, 123456);
+
+  // *********************************  Web Push  *********************************
+
+    sendpulse.listWebsites(answerGetter);
+    sendpulse.getWebsiteInfo(answerGetter, 123456);
+    sendpulse.getWebsitesCount(answerGetter);
+    sendpulse.getWebsiteVariables(answerGetter, 123456);
+    sendpulse.getWebsiteSubscribers(answerGetter, 123456, 10, 20, '2018-04-15 15:00:00', '2018-04-26 15:00:00');
+    sendpulse.getWebsiteSubscribersCount(answerGetter, 123456);
 });
